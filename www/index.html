@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Jarvis Lite</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    background:#050816;
+    font-family:Arial;
+    overflow:hidden;
+    color:white;
+}
+
+.container{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+.orb{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    background:radial-gradient(circle,#4facfe,#00f2fe);
+    box-shadow:
+    0 0 30px #00f2fe,
+    0 0 60px #4facfe,
+    0 0 100px #00f2fe;
+
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+    0%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.1);
+    }
+
+    100%{
+        transform:scale(1);
+    }
+}
+
+.title{
+    margin-top:40px;
+    font-size:36px;
+    font-weight:bold;
+}
+
+.subtitle{
+    margin-top:10px;
+    color:#aaa;
+    font-size:16px;
+}
+
+button{
+
+    margin-top:40px;
+    width:220px;
+    height:55px;
+
+    border:none;
+    border-radius:30px;
+
+    background:linear-gradient(45deg,#4facfe,#00f2fe);
+
+    color:white;
+    font-size:18px;
+
+    box-shadow:0 0 20px #00f2fe;
+
+}
+
+button:active{
+    transform:scale(0.95);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="orb"></div>
+
+<div class="title">JARVIS</div>
+
+<div class="subtitle">
+Your Personal AI Assistant
+</div>
+
+<button onclick="talkToJarvis()">
+Talk To Jarvis
+</button>
+
+</div>
+
+<script>
+
+function talkToJarvis(){
+
+    alert("Jarvis is listening...");
+
+}
+
+</script>
+
+</body>
+</html>
