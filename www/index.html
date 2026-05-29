@@ -109,15 +109,24 @@ Talk To Jarvis
 </div>
 <script>
 
+<script>
+
 document.addEventListener('deviceready', function() {
+
     alert("Cordova Ready");
+
+    if (window.plugins && window.plugins.speechRecognition) {
+        alert("Speech Plugin Loaded");
+    } else {
+        alert("Speech Plugin Missing");
+    }
+
 }, false);
 
-function talkToJarvis(){
+function talkToJarvis() {
     alert("Jarvis button pressed");
 }
 
 </script>
-
 </body>
 </html>
