@@ -110,71 +110,14 @@ Talk To Jarvis
 
 <script>
 
+document.addEventListener('deviceready', function() {
+    alert("Cordova Ready");
+}, false);
+
 function talkToJarvis(){
-
-    window.plugins.speechRecognition.requestPermission(
-
-        function(){
-
-            window.plugins.speechRecognition.startListening(
-
-                function(results){
-
-                    let command = results[0].toLowerCase();
-
-                    if(command.includes("youtube")){
-
-                        window.open(
-                            "https://youtube.com",
-                            "_system"
-                        );
-
-                    }
-
-                    else if(command.includes("google")){
-
-                        window.open(
-                            "https://google.com",
-                            "_system"
-                        );
-
-                    }
-
-                    else{
-
-                        alert(
-                            "You said: " + command
-                        );
-
-                    }
-
-                },
-
-                function(error){
-
-                    alert(
-                        "Speech Error: " + error
-                    );
-
-                }
-
-            );
-
-        },
-
-        function(){
-
-            alert(
-                "Microphone permission denied"
-            );
-
-        }
-
-    );
-
+    alert("Jarvis button pressed");
 }
 
 </script>
-
 </body>
 </html>
