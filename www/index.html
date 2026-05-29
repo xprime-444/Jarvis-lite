@@ -12,7 +12,7 @@ body{
     margin:0;
     padding:0;
     background:#050816;
-    font-family:Arial;
+    font-family:Arial,sans-serif;
     overflow:hidden;
     color:white;
 }
@@ -30,6 +30,7 @@ body{
     height:180px;
     border-radius:50%;
     background:radial-gradient(circle,#4facfe,#00f2fe);
+
     box-shadow:
     0 0 30px #00f2fe,
     0 0 60px #4facfe,
@@ -39,18 +40,9 @@ body{
 }
 
 @keyframes pulse{
-
-    0%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.1);
-    }
-
-    100%{
-        transform:scale(1);
-    }
+    0%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+    100%{transform:scale(1);}
 }
 
 .title{
@@ -66,21 +58,15 @@ body{
 }
 
 button{
-
     margin-top:40px;
     width:220px;
     height:55px;
-
     border:none;
     border-radius:30px;
-
     background:linear-gradient(45deg,#4facfe,#00f2fe);
-
     color:white;
     font-size:18px;
-
     box-shadow:0 0 20px #00f2fe;
-
 }
 
 button:active{
@@ -88,26 +74,27 @@ button:active{
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="orb"></div>
+    <div class="orb"></div>
 
-<div class="title">JARVIS</div>
+    <div class="title">JARVIS</div>
 
-<div class="subtitle">
-Your Personal AI Assistant
+    <div class="subtitle">
+        Your Personal AI Assistant
+    </div>
+
+    <button onclick="talkToJarvis()">
+        Talk To Jarvis
+    </button>
+
 </div>
 
-<button onclick="alert('Button Works')">
-Talk To Jarvis
-</button>
-</div>
-<script>
+<script src="cordova.js"></script>
 
 <script>
 
@@ -115,18 +102,26 @@ document.addEventListener('deviceready', function() {
 
     alert("Cordova Ready");
 
-    if (window.plugins && window.plugins.speechRecognition) {
+    if(window.plugins &&
+       window.plugins.speechRecognition){
+
         alert("Speech Plugin Loaded");
-    } else {
+
+    }else{
+
         alert("Speech Plugin Missing");
+
     }
 
 }, false);
 
-function talkToJarvis() {
+function talkToJarvis(){
+
     alert("Jarvis button pressed");
+
 }
 
 </script>
+
 </body>
 </html>
