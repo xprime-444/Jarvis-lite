@@ -96,19 +96,38 @@ Talk To Jarvis
 </div>
 
 <script src="cordova.js"></script>
+
 <script>
 
 document.addEventListener("deviceready", function() {
 
     if (window.plugins && window.plugins.speechRecognition) {
+
         document.getElementById("status").innerHTML =
         "Jarvis Ready";
+
     } else {
+
         document.getElementById("status").innerHTML =
         "Speech Plugin Missing";
+
     }
 
 }, false);
+
+function speak(text){
+
+    if(typeof TTS !== "undefined"){
+
+        TTS.speak({
+            text: text,
+            locale: "en-US",
+            rate: 1.0
+        });
+
+    }
+
+}
 
 function talkToJarvis() {
 
@@ -119,6 +138,7 @@ function talkToJarvis() {
         "Speech Plugin Missing";
 
         return;
+
     }
 
     document.getElementById("status").innerHTML =
@@ -135,6 +155,8 @@ function talkToJarvis() {
 
             if (command.includes("open youtube")) {
 
+                speak("Opening YouTube");
+
                 cordova.InAppBrowser.open(
                     "https://youtube.com",
                     "_system"
@@ -143,6 +165,8 @@ function talkToJarvis() {
             }
 
             else if (command.includes("open google")) {
+
+                speak("Opening Google");
 
                 cordova.InAppBrowser.open(
                     "https://google.com",
@@ -153,6 +177,8 @@ function talkToJarvis() {
 
             else if (command.includes("open chatgpt")) {
 
+                speak("Opening Chat GPT");
+
                 cordova.InAppBrowser.open(
                     "https://chatgpt.com",
                     "_system"
@@ -162,12 +188,19 @@ function talkToJarvis() {
 
             else if (command.includes("what time")) {
 
-                document.getElementById("status").innerHTML =
+                var time =
                 new Date().toLocaleTimeString();
+
+                document.getElementById("status").innerHTML =
+                time;
+
+                speak("The current time is " + time);
 
             }
 
             else {
+
+                speak("Sorry, I don't know that command yet");
 
                 document.getElementById("status").innerHTML =
                 "Command not recognized";
@@ -193,5 +226,7 @@ function talkToJarvis() {
 }
 
 </script>
+
+
 </body>
 </html>

@@ -15,7 +15,8 @@
   "devDependencies": {
     "cordova-android": "^15.0.0",
     "cordova-plugin-inappbrowser": "^6.0.0",
-    "cordova-plugin-speechrecognition": "^1.2.0"
+    "cordova-plugin-speechrecognition": "^1.2.0",
+    "cordova-plugin-tts": "^0.2.3"
   },
   "cordova": {
     "platforms": [
@@ -23,7 +24,8 @@
     ],
     "plugins": {
       "cordova-plugin-speechrecognition": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-tts": {}
     }
   }
 }
