@@ -96,59 +96,44 @@ Talk To Jarvis
 </div>
 
 <script src="cordova.js"></script>
-
-<script src="cordova.js"></script>
-
 <script>
 
-document.addEventListener("deviceready", function(){
+document.addEventListener("deviceready", function() {
 
-    if(window.plugins && window.plugins.speechRecognition){
+    if (window.plugins && window.plugins.speechRecognition) {
         document.getElementById("status").innerHTML =
         "Jarvis Ready";
-    }else{
+    } else {
         document.getElementById("status").innerHTML =
         "Speech Plugin Missing";
     }
 
 }, false);
 
-function talkToJarvis(){
+function talkToJarvis() {
 
-    window.plugins.speechRecognition.hasPermission(function(permission){
+    if (!window.plugins ||
+        !window.plugins.speechRecognition) {
 
-        if(permission){
-            startListening();
-        }else{
-            window.plugins.speechRecognition.requestPermission(
-                function(){
-                    startListening();
-                },
-                function(){
-                    alert("Microphone permission denied");
-                }
-            );
-        }
+        document.getElementById("status").innerHTML =
+        "Speech Plugin Missing";
 
-    });
-
-}
-
-function startListening(){
+        return;
+    }
 
     document.getElementById("status").innerHTML =
     "Listening...";
 
     window.plugins.speechRecognition.startListening(
 
-        function(matches){
+        function(matches) {
 
             var command = matches[0].toLowerCase();
 
             document.getElementById("status").innerHTML =
             "You said: " + command;
 
-            if(command.includes("open youtube")){
+            if (command.includes("open youtube")) {
 
                 cordova.InAppBrowser.open(
                     "https://youtube.com",
@@ -157,9 +142,56 @@ function startListening(){
 
             }
 
-            else if(command.includes("open google")){
+            else if (command.includes("open google")) {
 
-                cordova.InAppBrowser.open
+                cordova.InAppBrowser.open(
+                    "https://google.com",
+                    "_system"
+                );
+
+            }
+
+            else if (command.includes("open chatgpt")) {
+
+                cordova.InAppBrowser.open(
+                    "https://chatgpt.com",
+                    "_system"
+                );
+
+            }
+
+            else if (command.includes("what time")) {
+
+                document.getElementById("status").innerHTML =
+                new Date().toLocaleTimeString();
+
+            }
+
+            else {
+
+                document.getElementById("status").innerHTML =
+                "Command not recognized";
+
+            }
+
+        },
+
+        function(error) {
+
+            document.getElementById("status").innerHTML =
+            "Error: " + error;
+
+        },
+
+        {
+            language: "en-US",
+            matches: 1
+        }
+
+    );
+
+}
+
 </script>
 </body>
 </html>
