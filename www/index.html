@@ -97,35 +97,82 @@ Talk To Jarvis
 
 <script src="cordova.js"></script>
 
+<script src="cordova.js"></script>
+
 <script>
 
-document.addEventListener(
-    'deviceready',
-    function(){
+document.addEventListener("deviceready", function(){
 
-        document.getElementById(
-            "status"
-        ).innerHTML =
-        "Cordova Ready";
+    if(window.plugins && window.plugins.speechRecognition){
+        document.getElementById("status").innerHTML =
+        "Speech Plugin Found";
+    }else{
+        document.getElementById("status").innerHTML =
+        "Speech Plugin Missing";
+    }
 
-    },
-    false
-);
+}, false);
 
 function talkToJarvis(){
 
-    document.getElementById(
-        "status"
-    ).innerHTML =
-    "Button Pressed";
+    if(!(window.plugins && window.plugins.speechRecognition)){
+        alert("Speech plugin not found");
+        return;
+    }
 
-    alert(
-        "Jarvis button works"
+    window.plugins.speechRecognition.hasPermission(function(permission){
+
+        if(permission){
+
+            startListening();
+
+        }else{
+
+            window.plugins.speechRecognition.requestPermission(
+                function(){
+                    startListening();
+                },
+                function(err){
+                    alert("Permission denied");
+                }
+            );
+
+        }
+
+    });
+
+}
+
+function startListening(){
+
+    document.getElementById("status").innerHTML =
+    "Listening...";
+
+    window.plugins.speechRecognition.startListening(
+
+        function(matches){
+
+            document.getElementById("status").innerHTML =
+            matches[0];
+
+        },
+
+        function(error){
+
+            document.getElementById("status").innerHTML =
+            "Error: " + error;
+
+        },
+
+        {
+            language:"en-US",
+            matches:1
+        }
+
     );
 
 }
 
 </script>
-
 </body>
 </html>
