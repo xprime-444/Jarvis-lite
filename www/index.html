@@ -208,6 +208,85 @@ function launchApp(packageName){
 
 }
 
+if(command.includes("hello") || command.includes("hi")){
+
+    speak("Hello boss");
+
+    document.getElementById("status").innerHTML =
+    "Hello boss";
+
+    return;
+}
+
+if(command.includes("good morning")){
+
+    speak("Good morning boss");
+
+    return;
+}
+
+if(command.includes("good night")){
+
+    speak("Good night boss");
+
+    return;
+}
+
+if(command.includes("what time") ||
+   command.includes("current time")){
+
+    let now = new Date();
+
+    let time =
+    now.toLocaleTimeString();
+
+    document.getElementById("status").innerHTML =
+    time;
+
+    speak("The current time is " + time);
+
+    return;
+}
+
+if(command.includes("today date") ||
+   command.includes("what is today's date") ||
+   command.includes("current date")){
+
+    let now = new Date();
+
+    let date =
+    now.toDateString();
+
+    document.getElementById("status").innerHTML =
+    date;
+
+    speak("Today's date is " + date);
+
+    return;
+}
+
+if(command.includes("battery") ||
+   command.includes("battery status")){
+
+    navigator.getBattery().then(function(battery){
+
+        let level =
+        Math.round(battery.level * 100);
+
+        document.getElementById("status").innerHTML =
+        "Battery: " + level + "%";
+
+        speak(
+            "Battery level is " +
+            level +
+            " percent"
+        );
+
+    });
+
+    return;
+}
+
 function handleCommand(command){
 
     if(command.startsWith("open ")){
