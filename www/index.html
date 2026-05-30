@@ -96,7 +96,6 @@ Talk To Jarvis
 </div>
 
 <script src="cordova.js"></script>
-
 <script>
 
 const apps = {
@@ -167,24 +166,25 @@ function speak(text){
 
 function launchApp(packageName){
 
+    alert("Trying to open: " + packageName);
+
     appLauncher.launch(
 
         {
-            packageName:packageName
+            packageName: packageName
         },
 
         function(){
 
-            console.log("Launched");
+            alert("Launch success");
 
         },
 
-        function(){
+        function(error){
 
-            speak("App not installed");
+            alert("Launch failed: " + JSON.stringify(error));
 
-            document.getElementById("status").innerHTML =
-            "App not installed";
+            speak("App launch failed");
 
         }
 
@@ -280,6 +280,5 @@ function talkToJarvis(){
 }
 
 </script>
-
 </body>
 </html>
