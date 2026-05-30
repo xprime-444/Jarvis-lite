@@ -99,19 +99,55 @@ Talk To Jarvis
 
 <script>
 
-document.addEventListener("deviceready", function() {
+const apps = {
 
-    if (window.plugins && window.plugins.speechRecognition) {
+    "youtube":"com.google.android.youtube",
+    "whatsapp":"com.whatsapp",
+    "instagram":"com.instagram.android",
+    "facebook":"com.facebook.katana",
+    "messenger":"com.facebook.orca",
+    "telegram":"org.telegram.messenger",
+    "discord":"com.discord",
+    "spotify":"com.spotify.music",
+    "chrome":"com.android.chrome",
+    "gmail":"com.google.android.gm",
+    "maps":"com.google.android.apps.maps",
+    "play store":"com.android.vending",
+    "photos":"com.google.android.apps.photos",
+    "drive":"com.google.android.apps.docs",
+    "youtube music":"com.google.android.apps.youtube.music",
+    "chatgpt":"com.openai.chatgpt",
 
-        document.getElementById("status").innerHTML =
-        "Jarvis Ready";
+    "free fire":"com.dts.freefireth",
+    "free fire max":"com.dts.freefiremax",
+    "pubg":"com.tencent.ig",
+    "bgmi":"com.pubg.imobile",
+    "call of duty":"com.activision.callofduty.shooter",
+    "roblox":"com.roblox.client",
+    "minecraft":"com.mojang.minecraftpe",
+    "clash of clans":"com.supercell.clashofclans",
+    "clash royale":"com.supercell.clashroyale",
+    "brawl stars":"com.supercell.brawlstars",
+    "subway surfers":"com.kiloo.subwaysurf",
+    "among us":"com.innersloth.spacemafia",
 
-    } else {
+    "phone":"com.google.android.dialer",
+    "contacts":"com.android.contacts",
+    "messages":"com.google.android.apps.messaging",
+    "calculator":"com.google.android.calculator",
+    "clock":"com.google.android.deskclock",
+    "calendar":"com.google.android.calendar",
+    "camera":"com.android.camera",
+    "settings":"com.android.settings",
+    "files":"com.google.android.documentsui"
+};
 
-        document.getElementById("status").innerHTML =
-        "Speech Plugin Missing";
+document.addEventListener("deviceready", function(){
 
-    }
+    document.getElementById("status").innerHTML =
+    "Jarvis Ready";
+
+    speak("Jarvis is online");
 
 }, false);
 
@@ -120,96 +156,114 @@ function speak(text){
     if(typeof TTS !== "undefined"){
 
         TTS.speak({
-            text: text,
-            locale: "en-US",
-            rate: 1.0
+            text:text,
+            locale:"en-US",
+            rate:1.0
         });
 
     }
 
 }
 
-function talkToJarvis() {
+function launchApp(packageName){
 
-    if (!window.plugins ||
-        !window.plugins.speechRecognition) {
+    appLauncher.launch(
 
-        document.getElementById("status").innerHTML =
-        "Speech Plugin Missing";
+        {
+            packageName:packageName
+        },
+
+        function(){
+
+            console.log("Launched");
+
+        },
+
+        function(){
+
+            speak("App not installed");
+
+            document.getElementById("status").innerHTML =
+            "App not installed";
+
+        }
+
+    );
+
+}
+
+function handleCommand(command){
+
+    if(command.startsWith("open ")){
+
+        let appName =
+        command.replace("open ","").trim();
+
+        if(apps[appName]){
+
+            speak("Opening " + appName);
+
+            document.getElementById("status").innerHTML =
+            "Opening " + appName;
+
+            launchApp(apps[appName]);
+
+        }else{
+
+            speak("I don't know that app");
+
+            document.getElementById("status").innerHTML =
+            "Unknown app: " + appName;
+
+        }
 
         return;
-
     }
+
+    if(command.includes("what time")){
+
+        let time =
+        new Date().toLocaleTimeString();
+
+        document.getElementById("status").innerHTML =
+        time;
+
+        speak("The current time is " + time);
+
+        return;
+    }
+
+    if(command.includes("hello")){
+
+        speak("Hello boss");
+
+        return;
+    }
+
+    speak("Command not recognized");
+
+}
+
+function talkToJarvis(){
 
     document.getElementById("status").innerHTML =
     "Listening...";
 
     window.plugins.speechRecognition.startListening(
 
-        function(matches) {
+        function(matches){
 
-            var command = matches[0].toLowerCase();
+            let command =
+            matches[0].toLowerCase();
 
             document.getElementById("status").innerHTML =
             "You said: " + command;
 
-            if (command.includes("open youtube")) {
-
-                speak("Opening YouTube");
-
-                cordova.InAppBrowser.open(
-                    "https://youtube.com",
-                    "_system"
-                );
-
-            }
-
-            else if (command.includes("open google")) {
-
-                speak("Opening Google");
-
-                cordova.InAppBrowser.open(
-                    "https://google.com",
-                    "_system"
-                );
-
-            }
-
-            else if (command.includes("open chatgpt")) {
-
-                speak("Opening Chat GPT");
-
-                cordova.InAppBrowser.open(
-                    "https://chatgpt.com",
-                    "_system"
-                );
-
-            }
-
-            else if (command.includes("what time")) {
-
-                var time =
-                new Date().toLocaleTimeString();
-
-                document.getElementById("status").innerHTML =
-                time;
-
-                speak("The current time is " + time);
-
-            }
-
-            else {
-
-                speak("Sorry, I don't know that command yet");
-
-                document.getElementById("status").innerHTML =
-                "Command not recognized";
-
-            }
+            handleCommand(command);
 
         },
 
-        function(error) {
+        function(error){
 
             document.getElementById("status").innerHTML =
             "Error: " + error;
@@ -217,8 +271,8 @@ function talkToJarvis() {
         },
 
         {
-            language: "en-US",
-            matches: 1
+            language:"en-US",
+            matches:1
         }
 
     );
@@ -226,7 +280,6 @@ function talkToJarvis() {
 }
 
 </script>
-
 
 </body>
 </html>

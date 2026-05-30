@@ -14,6 +14,7 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "^15.0.0",
+    "cordova-plugin-app-launcher": "^0.4.0",
     "cordova-plugin-inappbrowser": "^6.0.0",
     "cordova-plugin-speechrecognition": "^1.2.0",
     "cordova-plugin-tts": "^0.2.3"
@@ -25,7 +26,8 @@
     "plugins": {
       "cordova-plugin-speechrecognition": {},
       "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-tts": {}
+      "cordova-plugin-tts": {},
+      "cordova-plugin-app-launcher": {}
     }
   }
 }
