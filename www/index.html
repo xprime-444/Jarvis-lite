@@ -166,27 +166,41 @@ function speak(text){
 
 function launchApp(packageName){
 
-    alert("Trying to open: " + packageName);
-
-    plugins.launcher.launch(
+    plugins.launcher.canLaunch(
 
         {
             packageName: packageName
         },
 
-        function(){
+        function(result){
 
-            alert("Launch success");
+            alert("canLaunch success: " + JSON.stringify(result));
+
+            plugins.launcher.launch(
+
+                {
+                    packageName: packageName
+                },
+
+                function(success){
+
+                    alert("launch success: " + JSON.stringify(success));
+
+                },
+
+                function(error){
+
+                    alert("launch error: " + JSON.stringify(error));
+
+                }
+
+            );
 
         },
 
         function(error){
 
-            alert("Launch failed");
-
-            speak("App launch failed");
-
-            console.log(error);
+            alert("canLaunch error: " + JSON.stringify(error));
 
         }
 
