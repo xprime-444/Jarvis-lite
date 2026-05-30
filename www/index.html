@@ -168,7 +168,7 @@ function launchApp(packageName){
 
     alert("Trying to open: " + packageName);
 
-    appLauncher.launch(
+    plugins.launcher.launch(
 
         {
             packageName: packageName
@@ -182,9 +182,11 @@ function launchApp(packageName){
 
         function(error){
 
-            alert("Launch failed: " + JSON.stringify(error));
+            alert("Launch failed");
 
             speak("App launch failed");
+
+            console.log(error);
 
         }
 
